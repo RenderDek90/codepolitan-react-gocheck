@@ -69,29 +69,35 @@ function Form({ listItems }) {
         <button>Add</button>
       </div>
     </form>
-      <CheckList listItems={updateListItems} />
+      <CheckList listItems={updateListItems} setUpdateListItems={setUpdateListItems} />
     </>
   );
 }
 
-function CheckList({ listItems }) {
+function CheckList({ listItems,setUpdateListItems }) {
   return (
     <div className="list">
       <ul>
-        {listItems.map(item => <Item key={item.id} item={item} />)}
+        {listItems.map(item => <Item key={item.id} item={item} setUpdateListItems={setUpdateListItems} />)}
       </ul>
     </div>
   );
 }
 
-function Item({ item }) {
+function Item({ item, setUpdateListItems }) {
+  
+  function handleDelete(e){
+    e.preventDefault();
+    setUpdateListItems(prevItems => prevItems.filter(i => i.id !== item.id));
+  }
+
   return (
     <li key={item.id}>
       <input type="checkbox" />
       <span style={{ textDecoration: item.done ? 'line-through' : '' }}>
         {item.title}
       </span>
-      <button>❌</button>
+      <button onClick={handleDelete}>❌</button>
     </li>
   );
 }
