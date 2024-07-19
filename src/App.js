@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import './App.css';
 
 const listItems = [
@@ -33,10 +34,27 @@ function Logo() {
 }
 
 function Form() {
+  const [title, setTitle] = useState('');
+
+  function handleSubmit(e) {
+    e.preventDefault();
+  }
+
   return (
-    <div className="add-form">
+    <form className="add-form" onSubmit={handleSubmit}>
       <h3>Ada yang mau di catat?</h3>
-    </div>
+
+      <input
+        type="text"
+        name="title"
+        id=""
+        value={title}
+        onChange={e => {
+          setTitle(e.target.value);
+        }}
+      />
+      <button>Add</button>
+    </form>
   );
 }
 
