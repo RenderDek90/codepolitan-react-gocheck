@@ -13,7 +13,11 @@ function App() {
 }
 
 function Logo(){
-  return <span className="logo">📄 GoCheck ✅</span>;
+  return (
+  <div className="logo-header">
+    <span className="logo">📄 GoCheck ✅</span>
+    </div>
+    );
 }
 
 function Form(){
@@ -36,7 +40,11 @@ function CheckList(){
 }
 
 function Stats(){
-
+  return (
+    <footer className="stats">
+      <span>📄 Kamu punya x catatan dan baru x yang dichecklist (x%) ✅</span>
+    </footer>
+  );
 }
 
 export default App;
