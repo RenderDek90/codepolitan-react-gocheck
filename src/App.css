@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-*{
+* {
   font-family: 'Poppins', sans-serif;
 }
 
@@ -11,38 +11,65 @@
 /* ------- Title */
 
 .logo-header {
-  background-color:#61dafb;
+  background-color: #61dafb;
   font-size: xx-large;
   padding: 2rem 0rem;
-  color:white;
+  color: white;
 }
 
-.add-form{
+.add-form {
   background-color: #b1ecfd;
   color: white;
   padding: 1rem 0rem;
 }
 
-h3{
-  margin:0;
+h3 {
+  margin: 0;
 }
 
-.list ul{
+.list ul {
   display: grid;
   grid-template-columns: auto auto;
   grid-gap: 1rem;
   text-align: left;
 }
 
-li{
+li {
   list-style: none;
 }
 
-footer{
+footer {
   background-color: rgb(255, 229, 180);
-  color : white;
+  color: white;
   padding: 1rem 0rem;
   width: 100%;
   position: absolute;
   bottom: 0;
+}
+
+.add-form {
+  display: flex;
+  flex: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+.add-form > div > input {
+  border: 0px;
+  border-radius: 5px;
+}
+
+.add-form > div > button {
+  background-color: #00d26a;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 10px;
+  font-weight: 600;
+}
+
+button {
+  margin: 0px 0.5rem;
+  border: 0px;
+  background: transparent;
 }

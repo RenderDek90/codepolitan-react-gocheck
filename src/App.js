@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import './App.css';
 
 const listItems = [
@@ -18,8 +18,7 @@ function App() {
   return (
     <div className="App">
       <Logo />
-      <Form />
-      <CheckList />
+      <Form listItems={listItems} />
       <Stats />
     </div>
   );
@@ -33,32 +32,49 @@ function Logo() {
   );
 }
 
-function Form() {
+function Form({ listItems }) {
   const [title, setTitle] = useState('');
+  const [updateListItems, setUpdateListItems] = useState(listItems);
+  const [counter, setCounter] = useState(3);
 
   function handleSubmit(e) {
     e.preventDefault();
+
+    const data = {
+      id: new Date().getTime(),
+      title: title,
+      done: false
+    };
+
+    setUpdateListItems(prevItems => [...prevItems, data]);
+    setCounter(counter + 1);
+    setTitle('');
   }
 
   return (
+    <>
     <form className="add-form" onSubmit={handleSubmit}>
       <h3>Ada yang mau di catat?</h3>
 
-      <input
-        type="text"
-        name="title"
-        id=""
-        value={title}
-        onChange={e => {
-          setTitle(e.target.value);
-        }}
-      />
-      <button>Add</button>
+      <div>
+        <input
+          type="text"
+          name="title"
+          id=""
+          value={title}
+          onChange={e => {
+            setTitle(e.target.value);
+          }}
+        />
+        <button>Add</button>
+      </div>
     </form>
+      <CheckList listItems={updateListItems} />
+    </>
   );
 }
 
-function CheckList() {
+function CheckList({ listItems }) {
   return (
     <div className="list">
       <ul>
