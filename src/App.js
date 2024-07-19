@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import './App.css';
 
 const listItems = [
@@ -52,29 +52,29 @@ function Form({ listItems }) {
   }
 
   return (
-    <>
-    <form className="add-form" onSubmit={handleSubmit}>
-      <h3>Ada yang mau di catat?</h3>
+    <div>
+      <form className="add-form" onSubmit={handleSubmit}>
+        <h3>Ada yang mau di catat?</h3>
 
-      <div>
-        <input
-          type="text"
-          name="title"
-          id=""
-          value={title}
-          onChange={e => {
-            setTitle(e.target.value);
-          }}
-        />
-        <button>Add</button>
-      </div>
-    </form>
+        <div>
+          <input
+            type="text"
+            name="title"
+            id=""
+            value={title}
+            onChange={e => {
+              setTitle(e.target.value);
+            }}
+          />
+          <button>Add</button>
+        </div>
+      </form>
       <CheckList listItems={updateListItems} setUpdateListItems={setUpdateListItems} />
-    </>
+    </div>
   );
 }
 
-function CheckList({ listItems,setUpdateListItems }) {
+function CheckList({ listItems, setUpdateListItems }) {
   return (
     <div className="list">
       <ul>
@@ -85,15 +85,22 @@ function CheckList({ listItems,setUpdateListItems }) {
 }
 
 function Item({ item, setUpdateListItems }) {
-  
-  function handleDelete(e){
+  function handleDelete(e) {
     e.preventDefault();
     setUpdateListItems(prevItems => prevItems.filter(i => i.id !== item.id));
   }
 
+  function handleCheck() {
+    setUpdateListItems(prevItems =>
+      prevItems.map(i => {
+        return i.id === item.id ? { ...i, done: !i.done } : i;
+      })
+    );
+  }
+
   return (
     <li key={item.id}>
-      <input type="checkbox" />
+      <input type="checkbox" checked={item.done} onChange={handleCheck} />
       <span style={{ textDecoration: item.done ? 'line-through' : '' }}>
         {item.title}
       </span>
