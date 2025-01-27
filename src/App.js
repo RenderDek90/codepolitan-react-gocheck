@@ -1,42 +1,52 @@
 
+import { useState } from 'react';
 import './App.css';
+import Logo from './components/Logo';
+import Form from './components/Form';
+import CheckList from './components/Checklist';
+import Stats from './components/Stats';
 
 function App() {
+  const [listItems , setListItems] = useState([]);
+
+  function handleSubmitItem(item){    
+    setListItems((listItems) => [...listItems , item]);
+  }
+
+  function handleDeleteItem(id){
+    setListItems((listItems) => listItems.filter((item) => id !== item.id));
+  }
+
+  function handleClearItems(){
+    const confirm = window.confirm("Clear the list?");
+    if(confirm){
+      setListItems([]);
+    }
+  }
+
+  function handleToggleItem(id){
+    setListItems((listItems) => {
+      return listItems.map((item) => {
+      if(item.id === id){
+        return {
+          ...item,
+          done:!item.done,
+        }
+      }
+
+      return item;
+    })
+  });
+  }
+
   return (
     <div className="App">
       <Logo />
-      <Form />
-      <CheckList />
-      <Stats />
+      <Form onAddItem={handleSubmitItem} />
+      <CheckList items={listItems} onDeleteItem={handleDeleteItem} onToggleItem={handleToggleItem} onClearItems = {handleClearItems}/>
+      <Stats items={listItems} />
     </div>
   );
-}
-
-function Logo(){
-  return <span className="logo">📄 GoCheck ✅</span>;
-}
-
-function Form(){
-  return(
-    <div className="add-form">
-      <h3>Ada yang mau di catat?</h3>
-    </div>
-  )
-}
-
-function CheckList(){
-  return(
-    <div className="list">
-      <ul>
-        <li>Makan</li>
-        <li>Tidur</li>
-      </ul>
-    </div>
-  )
-}
-
-function Stats(){
-
 }
 
 export default App;
